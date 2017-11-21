@@ -1,0 +1,50 @@
+﻿@model ProjectsTool.Models.HeadQuater
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>HeadQuater</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.HQname)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.HQname)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.NumberOfRooms)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.NumberOfRooms)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.MonthlyRent)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.MonthlyRent)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Address.Street)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Address.Street)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.ID }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

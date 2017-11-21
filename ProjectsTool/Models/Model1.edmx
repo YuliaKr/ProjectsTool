@@ -1,0 +1,745 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="AssignmentManagementToolModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Address">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Street" Type="varchar" MaxLength="255" />
+          <Property Name="City" Type="varchar" MaxLength="255" />
+          <Property Name="Number" Type="varchar" MaxLength="255" />
+          <Property Name="CountryID" Type="int" />
+        </EntityType>
+        <EntityType Name="Country">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Country" Type="varchar" MaxLength="255" />
+          <Property Name="PostalCode" Type="varchar" MaxLength="255" />
+        </EntityType>
+        <EntityType Name="Degree">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Course" Type="varchar" MaxLength="255" />
+          <Property Name="School" Type="varchar" MaxLength="255" />
+          <Property Name="Level" Type="varchar" MaxLength="255" />
+        </EntityType>
+        <EntityType Name="Employee">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="BSN" Type="int" Nullable="false" />
+          <Property Name="Name" Type="varchar" MaxLength="255" />
+          <Property Name="Surname" Type="varchar" MaxLength="255" />
+          <Property Name="HQid" Type="int" />
+        </EntityType>
+        <EntityType Name="EmployeeAddress">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="EmployeeID" Type="int" />
+          <Property Name="AddressId" Type="int" />
+          <Property Name="Residence" Type="int" />
+        </EntityType>
+        <EntityType Name="EmployeeDegree">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="EmployeeID" Type="int" Nullable="false" />
+          <Property Name="DegreeId" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="EmployeePosition">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="EmployeeID" Type="int" Nullable="false" />
+          <Property Name="PositionId" Type="int" />
+          <Property Name="ProjectId" Type="int" />
+          <Property Name="ProjectHours" Type="int" />
+        </EntityType>
+        <EntityType Name="HeadQuater">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="HQname" Type="varchar" MaxLength="255" Nullable="false" />
+          <Property Name="NumberOfRooms" Type="int" />
+          <Property Name="MonthlyRent" Type="int" />
+          <Property Name="AddressId" Type="int" />
+        </EntityType>
+        <EntityType Name="Position">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="PositionName" Type="varchar" MaxLength="255" Nullable="false" />
+          <Property Name="PositionDescription" Type="varchar" MaxLength="255" />
+          <Property Name="HourFee" Type="int" />
+        </EntityType>
+        <EntityType Name="Project">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ProjectName" Type="varchar" MaxLength="255" Nullable="false" />
+          <Property Name="Budget" Type="int" />
+          <Property Name="TotalHours" Type="int" />
+          <Property Name="HQid" Type="int" />
+        </EntityType>
+        <Association Name="FK__Address__Country__25869641">
+          <End Role="Country" Type="Self.Country" Multiplicity="0..1" />
+          <End Role="Address" Type="Self.Address" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Country">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Address">
+              <PropertyRef Name="CountryID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Employee__HQid__31EC6D26">
+          <End Role="HeadQuater" Type="Self.HeadQuater" Multiplicity="0..1" />
+          <End Role="Employee" Type="Self.Employee" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="HeadQuater">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Employee">
+              <PropertyRef Name="HQid" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__EmployeeA__Addre__36B12243">
+          <End Role="Address" Type="Self.Address" Multiplicity="0..1" />
+          <End Role="EmployeeAddress" Type="Self.EmployeeAddress" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Address">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="EmployeeAddress">
+              <PropertyRef Name="AddressId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__EmployeeA__Emplo__37A5467C">
+          <End Role="Employee" Type="Self.Employee" Multiplicity="0..1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="EmployeeAddress" Type="Self.EmployeeAddress" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Employee">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="EmployeeAddress">
+              <PropertyRef Name="EmployeeID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__EmployeeD__Degre__4222D4EF">
+          <End Role="Degree" Type="Self.Degree" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="EmployeeDegree" Type="Self.EmployeeDegree" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Degree">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="EmployeeDegree">
+              <PropertyRef Name="DegreeId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__EmployeeD__Emplo__4316F928">
+          <End Role="Employee" Type="Self.Employee" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="EmployeeDegree" Type="Self.EmployeeDegree" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Employee">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="EmployeeDegree">
+              <PropertyRef Name="EmployeeID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__EmployeeP__Emplo__3C69FB99">
+          <End Role="Employee" Type="Self.Employee" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="EmployeePosition" Type="Self.EmployeePosition" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Employee">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="EmployeePosition">
+              <PropertyRef Name="EmployeeID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__EmployeeP__Posit__3A81B327">
+          <End Role="Position" Type="Self.Position" Multiplicity="0..1" />
+          <End Role="EmployeePosition" Type="Self.EmployeePosition" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Position">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="EmployeePosition">
+              <PropertyRef Name="PositionId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__EmployeeP__Proje__3B75D760">
+          <End Role="Project" Type="Self.Project" Multiplicity="0..1" />
+          <End Role="EmployeePosition" Type="Self.EmployeePosition" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Project">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="EmployeePosition">
+              <PropertyRef Name="ProjectId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__HeadQuate__Addre__2C3393D0">
+          <End Role="Address" Type="Self.Address" Multiplicity="0..1" />
+          <End Role="HeadQuater" Type="Self.HeadQuater" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Address">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="HeadQuater">
+              <PropertyRef Name="AddressId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Project__HQid__2F10007B">
+          <End Role="HeadQuater" Type="Self.HeadQuater" Multiplicity="0..1" />
+          <End Role="Project" Type="Self.Project" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="HeadQuater">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Project">
+              <PropertyRef Name="HQid" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="AssignmentManagementToolModelStoreContainer">
+          <EntitySet Name="Address" EntityType="Self.Address" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Country" EntityType="Self.Country" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Degree" EntityType="Self.Degree" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Employee" EntityType="Self.Employee" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="EmployeeAddress" EntityType="Self.EmployeeAddress" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="EmployeeDegree" EntityType="Self.EmployeeDegree" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="EmployeePosition" EntityType="Self.EmployeePosition" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="HeadQuater" EntityType="Self.HeadQuater" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Position" EntityType="Self.Position" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Project" EntityType="Self.Project" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK__Address__Country__25869641" Association="Self.FK__Address__Country__25869641">
+            <End Role="Country" EntitySet="Country" />
+            <End Role="Address" EntitySet="Address" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Employee__HQid__31EC6D26" Association="Self.FK__Employee__HQid__31EC6D26">
+            <End Role="HeadQuater" EntitySet="HeadQuater" />
+            <End Role="Employee" EntitySet="Employee" />
+          </AssociationSet>
+          <AssociationSet Name="FK__EmployeeA__Addre__36B12243" Association="Self.FK__EmployeeA__Addre__36B12243">
+            <End Role="Address" EntitySet="Address" />
+            <End Role="EmployeeAddress" EntitySet="EmployeeAddress" />
+          </AssociationSet>
+          <AssociationSet Name="FK__EmployeeA__Emplo__37A5467C" Association="Self.FK__EmployeeA__Emplo__37A5467C">
+            <End Role="Employee" EntitySet="Employee" />
+            <End Role="EmployeeAddress" EntitySet="EmployeeAddress" />
+          </AssociationSet>
+          <AssociationSet Name="FK__EmployeeD__Degre__4222D4EF" Association="Self.FK__EmployeeD__Degre__4222D4EF">
+            <End Role="Degree" EntitySet="Degree" />
+            <End Role="EmployeeDegree" EntitySet="EmployeeDegree" />
+          </AssociationSet>
+          <AssociationSet Name="FK__EmployeeD__Emplo__4316F928" Association="Self.FK__EmployeeD__Emplo__4316F928">
+            <End Role="Employee" EntitySet="Employee" />
+            <End Role="EmployeeDegree" EntitySet="EmployeeDegree" />
+          </AssociationSet>
+          <AssociationSet Name="FK__EmployeeP__Emplo__3C69FB99" Association="Self.FK__EmployeeP__Emplo__3C69FB99">
+            <End Role="Employee" EntitySet="Employee" />
+            <End Role="EmployeePosition" EntitySet="EmployeePosition" />
+          </AssociationSet>
+          <AssociationSet Name="FK__EmployeeP__Posit__3A81B327" Association="Self.FK__EmployeeP__Posit__3A81B327">
+            <End Role="Position" EntitySet="Position" />
+            <End Role="EmployeePosition" EntitySet="EmployeePosition" />
+          </AssociationSet>
+          <AssociationSet Name="FK__EmployeeP__Proje__3B75D760" Association="Self.FK__EmployeeP__Proje__3B75D760">
+            <End Role="Project" EntitySet="Project" />
+            <End Role="EmployeePosition" EntitySet="EmployeePosition" />
+          </AssociationSet>
+          <AssociationSet Name="FK__HeadQuate__Addre__2C3393D0" Association="Self.FK__HeadQuate__Addre__2C3393D0">
+            <End Role="Address" EntitySet="Address" />
+            <End Role="HeadQuater" EntitySet="HeadQuater" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Project__HQid__2F10007B" Association="Self.FK__Project__HQid__2F10007B">
+            <End Role="HeadQuater" EntitySet="HeadQuater" />
+            <End Role="Project" EntitySet="Project" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="AssignmentManagementToolModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="Address">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Street" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="City" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="Number" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="CountryID" Type="Int32" />
+          <NavigationProperty Name="Country" Relationship="Self.FK__Address__Country__25869641" FromRole="Address" ToRole="Country" />
+          <NavigationProperty Name="EmployeeAddresses" Relationship="Self.FK__EmployeeA__Addre__36B12243" FromRole="Address" ToRole="EmployeeAddress" />
+          <NavigationProperty Name="HeadQuaters" Relationship="Self.FK__HeadQuate__Addre__2C3393D0" FromRole="Address" ToRole="HeadQuater" />
+        </EntityType>
+        <EntityType Name="Country">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Country1" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="PostalCode" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Addresses" Relationship="Self.FK__Address__Country__25869641" FromRole="Country" ToRole="Address" />
+        </EntityType>
+        <EntityType Name="Degree">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Course" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="School" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="Level" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="EmployeeDegrees" Relationship="Self.FK__EmployeeD__Degre__4222D4EF" FromRole="Degree" ToRole="EmployeeDegree" />
+        </EntityType>
+        <EntityType Name="Employee">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="BSN" Type="Int32" Nullable="false" />
+          <Property Name="Name" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="Surname" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="HQid" Type="Int32" />
+          <NavigationProperty Name="HeadQuater" Relationship="Self.FK__Employee__HQid__31EC6D26" FromRole="Employee" ToRole="HeadQuater" />
+          <NavigationProperty Name="EmployeeAddresses" Relationship="Self.FK__EmployeeA__Emplo__37A5467C" FromRole="Employee" ToRole="EmployeeAddress" />
+          <NavigationProperty Name="EmployeeDegrees" Relationship="Self.FK__EmployeeD__Emplo__4316F928" FromRole="Employee" ToRole="EmployeeDegree" />
+          <NavigationProperty Name="EmployeePositions" Relationship="Self.FK__EmployeeP__Emplo__3C69FB99" FromRole="Employee" ToRole="EmployeePosition" />
+        </EntityType>
+        <EntityType Name="EmployeeAddress">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="EmployeeID" Type="Int32" />
+          <Property Name="AddressId" Type="Int32" />
+          <Property Name="Residence" Type="Int32" />
+          <NavigationProperty Name="Address" Relationship="Self.FK__EmployeeA__Addre__36B12243" FromRole="EmployeeAddress" ToRole="Address" />
+          <NavigationProperty Name="Employee" Relationship="Self.FK__EmployeeA__Emplo__37A5467C" FromRole="EmployeeAddress" ToRole="Employee" />
+        </EntityType>
+        <EntityType Name="EmployeeDegree">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="EmployeeID" Type="Int32" Nullable="false" />
+          <Property Name="DegreeId" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Degree" Relationship="Self.FK__EmployeeD__Degre__4222D4EF" FromRole="EmployeeDegree" ToRole="Degree" />
+          <NavigationProperty Name="Employee" Relationship="Self.FK__EmployeeD__Emplo__4316F928" FromRole="EmployeeDegree" ToRole="Employee" />
+        </EntityType>
+        <EntityType Name="EmployeePosition">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="EmployeeID" Type="Int32" Nullable="false" />
+          <Property Name="PositionId" Type="Int32" />
+          <Property Name="ProjectId" Type="Int32" />
+          <Property Name="ProjectHours" Type="Int32" />
+          <NavigationProperty Name="Employee" Relationship="Self.FK__EmployeeP__Emplo__3C69FB99" FromRole="EmployeePosition" ToRole="Employee" />
+          <NavigationProperty Name="Position" Relationship="Self.FK__EmployeeP__Posit__3A81B327" FromRole="EmployeePosition" ToRole="Position" />
+          <NavigationProperty Name="Project" Relationship="Self.FK__EmployeeP__Proje__3B75D760" FromRole="EmployeePosition" ToRole="Project" />
+        </EntityType>
+        <EntityType Name="HeadQuater">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="HQname" Type="String" MaxLength="255" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="NumberOfRooms" Type="Int32" />
+          <Property Name="MonthlyRent" Type="Int32" />
+          <Property Name="AddressId" Type="Int32" />
+          <NavigationProperty Name="Address" Relationship="Self.FK__HeadQuate__Addre__2C3393D0" FromRole="HeadQuater" ToRole="Address" />
+          <NavigationProperty Name="Employees" Relationship="Self.FK__Employee__HQid__31EC6D26" FromRole="HeadQuater" ToRole="Employee" />
+          <NavigationProperty Name="Projects" Relationship="Self.FK__Project__HQid__2F10007B" FromRole="HeadQuater" ToRole="Project" />
+        </EntityType>
+        <EntityType Name="Position">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="PositionName" Type="String" MaxLength="255" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="PositionDescription" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="HourFee" Type="Int32" />
+          <NavigationProperty Name="EmployeePositions" Relationship="Self.FK__EmployeeP__Posit__3A81B327" FromRole="Position" ToRole="EmployeePosition" />
+        </EntityType>
+        <EntityType Name="Project">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ProjectName" Type="String" MaxLength="255" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Budget" Type="Int32" />
+          <Property Name="TotalHours" Type="Int32" />
+          <Property Name="HQid" Type="Int32" />
+          <NavigationProperty Name="EmployeePositions" Relationship="Self.FK__EmployeeP__Proje__3B75D760" FromRole="Project" ToRole="EmployeePosition" />
+          <NavigationProperty Name="HeadQuater" Relationship="Self.FK__Project__HQid__2F10007B" FromRole="Project" ToRole="HeadQuater" />
+        </EntityType>
+        <Association Name="FK__Address__Country__25869641">
+          <End Role="Country" Type="Self.Country" Multiplicity="0..1" />
+          <End Role="Address" Type="Self.Address" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Country">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Address">
+              <PropertyRef Name="CountryID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__EmployeeA__Addre__36B12243">
+          <End Role="Address" Type="Self.Address" Multiplicity="0..1" />
+          <End Role="EmployeeAddress" Type="Self.EmployeeAddress" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Address">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="EmployeeAddress">
+              <PropertyRef Name="AddressId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__HeadQuate__Addre__2C3393D0">
+          <End Role="Address" Type="Self.Address" Multiplicity="0..1" />
+          <End Role="HeadQuater" Type="Self.HeadQuater" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Address">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="HeadQuater">
+              <PropertyRef Name="AddressId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__EmployeeD__Degre__4222D4EF">
+          <End Role="Degree" Type="Self.Degree" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="EmployeeDegree" Type="Self.EmployeeDegree" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Degree">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="EmployeeDegree">
+              <PropertyRef Name="DegreeId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Employee__HQid__31EC6D26">
+          <End Role="HeadQuater" Type="Self.HeadQuater" Multiplicity="0..1" />
+          <End Role="Employee" Type="Self.Employee" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="HeadQuater">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Employee">
+              <PropertyRef Name="HQid" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__EmployeeA__Emplo__37A5467C">
+          <End Role="Employee" Type="Self.Employee" Multiplicity="0..1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="EmployeeAddress" Type="Self.EmployeeAddress" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Employee">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="EmployeeAddress">
+              <PropertyRef Name="EmployeeID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__EmployeeD__Emplo__4316F928">
+          <End Role="Employee" Type="Self.Employee" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="EmployeeDegree" Type="Self.EmployeeDegree" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Employee">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="EmployeeDegree">
+              <PropertyRef Name="EmployeeID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__EmployeeP__Emplo__3C69FB99">
+          <End Role="Employee" Type="Self.Employee" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="EmployeePosition" Type="Self.EmployeePosition" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Employee">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="EmployeePosition">
+              <PropertyRef Name="EmployeeID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__EmployeeP__Posit__3A81B327">
+          <End Role="Position" Type="Self.Position" Multiplicity="0..1" />
+          <End Role="EmployeePosition" Type="Self.EmployeePosition" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Position">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="EmployeePosition">
+              <PropertyRef Name="PositionId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__EmployeeP__Proje__3B75D760">
+          <End Role="Project" Type="Self.Project" Multiplicity="0..1" />
+          <End Role="EmployeePosition" Type="Self.EmployeePosition" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Project">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="EmployeePosition">
+              <PropertyRef Name="ProjectId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Project__HQid__2F10007B">
+          <End Role="HeadQuater" Type="Self.HeadQuater" Multiplicity="0..1" />
+          <End Role="Project" Type="Self.Project" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="HeadQuater">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Project">
+              <PropertyRef Name="HQid" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="AssignmentManagementToolEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Addresses" EntityType="Self.Address" />
+          <EntitySet Name="Countries" EntityType="Self.Country" />
+          <EntitySet Name="Degrees" EntityType="Self.Degree" />
+          <EntitySet Name="Employees" EntityType="Self.Employee" />
+          <EntitySet Name="EmployeeAddresses" EntityType="Self.EmployeeAddress" />
+          <EntitySet Name="EmployeeDegrees" EntityType="Self.EmployeeDegree" />
+          <EntitySet Name="EmployeePositions" EntityType="Self.EmployeePosition" />
+          <EntitySet Name="HeadQuaters" EntityType="Self.HeadQuater" />
+          <EntitySet Name="Positions" EntityType="Self.Position" />
+          <EntitySet Name="Projects" EntityType="Self.Project" />
+          <AssociationSet Name="FK__Address__Country__25869641" Association="Self.FK__Address__Country__25869641">
+            <End Role="Country" EntitySet="Countries" />
+            <End Role="Address" EntitySet="Addresses" />
+          </AssociationSet>
+          <AssociationSet Name="FK__EmployeeA__Addre__36B12243" Association="Self.FK__EmployeeA__Addre__36B12243">
+            <End Role="Address" EntitySet="Addresses" />
+            <End Role="EmployeeAddress" EntitySet="EmployeeAddresses" />
+          </AssociationSet>
+          <AssociationSet Name="FK__HeadQuate__Addre__2C3393D0" Association="Self.FK__HeadQuate__Addre__2C3393D0">
+            <End Role="Address" EntitySet="Addresses" />
+            <End Role="HeadQuater" EntitySet="HeadQuaters" />
+          </AssociationSet>
+          <AssociationSet Name="FK__EmployeeD__Degre__4222D4EF" Association="Self.FK__EmployeeD__Degre__4222D4EF">
+            <End Role="Degree" EntitySet="Degrees" />
+            <End Role="EmployeeDegree" EntitySet="EmployeeDegrees" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Employee__HQid__31EC6D26" Association="Self.FK__Employee__HQid__31EC6D26">
+            <End Role="HeadQuater" EntitySet="HeadQuaters" />
+            <End Role="Employee" EntitySet="Employees" />
+          </AssociationSet>
+          <AssociationSet Name="FK__EmployeeA__Emplo__37A5467C" Association="Self.FK__EmployeeA__Emplo__37A5467C">
+            <End Role="Employee" EntitySet="Employees" />
+            <End Role="EmployeeAddress" EntitySet="EmployeeAddresses" />
+          </AssociationSet>
+          <AssociationSet Name="FK__EmployeeD__Emplo__4316F928" Association="Self.FK__EmployeeD__Emplo__4316F928">
+            <End Role="Employee" EntitySet="Employees" />
+            <End Role="EmployeeDegree" EntitySet="EmployeeDegrees" />
+          </AssociationSet>
+          <AssociationSet Name="FK__EmployeeP__Emplo__3C69FB99" Association="Self.FK__EmployeeP__Emplo__3C69FB99">
+            <End Role="Employee" EntitySet="Employees" />
+            <End Role="EmployeePosition" EntitySet="EmployeePositions" />
+          </AssociationSet>
+          <AssociationSet Name="FK__EmployeeP__Posit__3A81B327" Association="Self.FK__EmployeeP__Posit__3A81B327">
+            <End Role="Position" EntitySet="Positions" />
+            <End Role="EmployeePosition" EntitySet="EmployeePositions" />
+          </AssociationSet>
+          <AssociationSet Name="FK__EmployeeP__Proje__3B75D760" Association="Self.FK__EmployeeP__Proje__3B75D760">
+            <End Role="Project" EntitySet="Projects" />
+            <End Role="EmployeePosition" EntitySet="EmployeePositions" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Project__HQid__2F10007B" Association="Self.FK__Project__HQid__2F10007B">
+            <End Role="HeadQuater" EntitySet="HeadQuaters" />
+            <End Role="Project" EntitySet="Projects" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="AssignmentManagementToolModelStoreContainer" CdmEntityContainer="AssignmentManagementToolEntities">
+          <EntitySetMapping Name="Addresses">
+            <EntityTypeMapping TypeName="AssignmentManagementToolModel.Address">
+              <MappingFragment StoreEntitySet="Address">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="Street" ColumnName="Street" />
+                <ScalarProperty Name="City" ColumnName="City" />
+                <ScalarProperty Name="Number" ColumnName="Number" />
+                <ScalarProperty Name="CountryID" ColumnName="CountryID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Countries">
+            <EntityTypeMapping TypeName="AssignmentManagementToolModel.Country">
+              <MappingFragment StoreEntitySet="Country">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="Country1" ColumnName="Country" />
+                <ScalarProperty Name="PostalCode" ColumnName="PostalCode" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Degrees">
+            <EntityTypeMapping TypeName="AssignmentManagementToolModel.Degree">
+              <MappingFragment StoreEntitySet="Degree">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="Course" ColumnName="Course" />
+                <ScalarProperty Name="School" ColumnName="School" />
+                <ScalarProperty Name="Level" ColumnName="Level" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Employees">
+            <EntityTypeMapping TypeName="AssignmentManagementToolModel.Employee">
+              <MappingFragment StoreEntitySet="Employee">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="BSN" ColumnName="BSN" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Surname" ColumnName="Surname" />
+                <ScalarProperty Name="HQid" ColumnName="HQid" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="EmployeeAddresses">
+            <EntityTypeMapping TypeName="AssignmentManagementToolModel.EmployeeAddress">
+              <MappingFragment StoreEntitySet="EmployeeAddress">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="EmployeeID" ColumnName="EmployeeID" />
+                <ScalarProperty Name="AddressId" ColumnName="AddressId" />
+                <ScalarProperty Name="Residence" ColumnName="Residence" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="EmployeeDegrees">
+            <EntityTypeMapping TypeName="AssignmentManagementToolModel.EmployeeDegree">
+              <MappingFragment StoreEntitySet="EmployeeDegree">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="EmployeeID" ColumnName="EmployeeID" />
+                <ScalarProperty Name="DegreeId" ColumnName="DegreeId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="EmployeePositions">
+            <EntityTypeMapping TypeName="AssignmentManagementToolModel.EmployeePosition">
+              <MappingFragment StoreEntitySet="EmployeePosition">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="EmployeeID" ColumnName="EmployeeID" />
+                <ScalarProperty Name="PositionId" ColumnName="PositionId" />
+                <ScalarProperty Name="ProjectId" ColumnName="ProjectId" />
+                <ScalarProperty Name="ProjectHours" ColumnName="ProjectHours" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="HeadQuaters">
+            <EntityTypeMapping TypeName="AssignmentManagementToolModel.HeadQuater">
+              <MappingFragment StoreEntitySet="HeadQuater">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="HQname" ColumnName="HQname" />
+                <ScalarProperty Name="NumberOfRooms" ColumnName="NumberOfRooms" />
+                <ScalarProperty Name="MonthlyRent" ColumnName="MonthlyRent" />
+                <ScalarProperty Name="AddressId" ColumnName="AddressId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Positions">
+            <EntityTypeMapping TypeName="AssignmentManagementToolModel.Position">
+              <MappingFragment StoreEntitySet="Position">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="PositionName" ColumnName="PositionName" />
+                <ScalarProperty Name="PositionDescription" ColumnName="PositionDescription" />
+                <ScalarProperty Name="HourFee" ColumnName="HourFee" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Projects">
+            <EntityTypeMapping TypeName="AssignmentManagementToolModel.Project">
+              <MappingFragment StoreEntitySet="Project">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="ProjectName" ColumnName="ProjectName" />
+                <ScalarProperty Name="Budget" ColumnName="Budget" />
+                <ScalarProperty Name="TotalHours" ColumnName="TotalHours" />
+                <ScalarProperty Name="HQid" ColumnName="HQid" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

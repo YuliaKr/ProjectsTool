@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="0859c406f872482286deab0e86901de4" Name="Diagram1">
+        <EntityTypeShape EntityType="AssignmentManagementToolModel.Address" Width="1.5" PointX="3" PointY="5.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="AssignmentManagementToolModel.Country" Width="1.5" PointX="0.75" PointY="6.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="AssignmentManagementToolModel.Degree" Width="1.5" PointX="7.5" PointY="14.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="AssignmentManagementToolModel.Employee" Width="1.5" PointX="7.5" PointY="7" IsExpanded="true" />
+        <EntityTypeShape EntityType="AssignmentManagementToolModel.EmployeeAddress" Width="1.5" PointX="9.75" PointY="6.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="AssignmentManagementToolModel.EmployeeDegree" Width="1.5" PointX="9.75" PointY="10.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="AssignmentManagementToolModel.EmployeePosition" Width="1.5" PointX="12.75" PointY="8.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="AssignmentManagementToolModel.HeadQuater" Width="1.5" PointX="5.25" PointY="8.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="AssignmentManagementToolModel.Position" Width="1.5" PointX="10.5" PointY="14" IsExpanded="true" />
+        <EntityTypeShape EntityType="AssignmentManagementToolModel.Project" Width="1.5" PointX="7.5" PointY="10.5" IsExpanded="true" />
+        <AssociationConnector Association="AssignmentManagementToolModel.FK__Address__Country__25869641" ManuallyRouted="false" />
+        <AssociationConnector Association="AssignmentManagementToolModel.FK__EmployeeA__Addre__36B12243" ManuallyRouted="false" />
+        <AssociationConnector Association="AssignmentManagementToolModel.FK__HeadQuate__Addre__2C3393D0" ManuallyRouted="false" />
+        <AssociationConnector Association="AssignmentManagementToolModel.FK__EmployeeD__Degre__4222D4EF" ManuallyRouted="false" />
+        <AssociationConnector Association="AssignmentManagementToolModel.FK__Employee__HQid__31EC6D26" ManuallyRouted="false" />
+        <AssociationConnector Association="AssignmentManagementToolModel.FK__EmployeeA__Emplo__37A5467C" ManuallyRouted="false" />
+        <AssociationConnector Association="AssignmentManagementToolModel.FK__EmployeeD__Emplo__4316F928" ManuallyRouted="false" />
+        <AssociationConnector Association="AssignmentManagementToolModel.FK__EmployeeP__Emplo__3C69FB99" ManuallyRouted="false" />
+        <AssociationConnector Association="AssignmentManagementToolModel.FK__EmployeeP__Posit__3A81B327" ManuallyRouted="false" />
+        <AssociationConnector Association="AssignmentManagementToolModel.FK__EmployeeP__Proje__3B75D760" ManuallyRouted="false" />
+        <AssociationConnector Association="AssignmentManagementToolModel.FK__Project__HQid__2F10007B" ManuallyRouted="false" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

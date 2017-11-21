@@ -1,0 +1,41 @@
+﻿@model ProjectsTool.Models.StatisticsViewModel
+@{
+    ViewBag.Title = "Queries";
+}
+
+<h2>Queries</h2>
+
+<h3>Total hours</h3>
+@Html.DisplayFor(model => model.TotalWorkingHoursAll)
+<br />
+
+<h3>Average hours per employee</h3>
+@Html.DisplayFor(model => model.AverageHoursPerEmployee)
+<br />
+
+<h3>Select project from below dropdown to check how many people are working on project for more than 20 hours</h3>
+<div>
+    <div class="form-group">
+        @Html.LabelFor(model => model.ProjectId, "ProjectId", htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.DropDownListFor(m => m.ProjectId, (SelectList)ViewBag.ProjectId, new { onchange = "document.location.href = 'CheckHardworkersNumber?ProjectId=' + this.options[this.selectedIndex].value;" })
+        </div>
+        <div class="form-group" style="font-size: 25px;">Number of people: @ViewBag.Count</div>
+    </div>
+    
+</div>
+
+<br />
+
+<h3>Select emplyee from below dropdown to check his/her gross salary</h3>
+<div>
+    <div class="form-group">
+        @Html.LabelFor(model => model.EmployeeId, "EmployeeId", htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.DropDownListFor(m => m.EmployeeId, (SelectList)ViewBag.EmployeeId, new { onchange = "document.location.href = 'CheckSalaryPerEmployee?EmployeeId=' + this.options[this.selectedIndex].value;" })
+        </div>
+    </div>
+    <div class="form-group" style="font-size: 25px;">Salary: @ViewBag.Gross</div>
+</div>
+
+<br />
